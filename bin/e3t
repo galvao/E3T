@@ -1,0 +1,52 @@
+#! /usr/bin/env php
+<?php
+
+declare(strict_types = 1);
+
+if (php_sapi_name() !== 'cli') {
+    echo 'Error: E³T must be used via CLI.';
+    exit(1);
+}
+
+if (!extension_loaded('readline')) {
+    echo 'Error: readline extension not found.';
+    exit(2);
+}
+
+define('BASEPATH', dirname(realpath(__DIR__)));
+
+chdir(BASEPATH);
+
+require 'vendor/autoload.php';
+
+use E3T\{
+    E3T,
+    Factory\Command,
+    Session,
+};
+
+ob_implicit_flush();
+
+$session = Session::getInstance();
+$tty = new E3T($session);
+
+while ($input = readline($tty->getPrompt())) {
+    readline_add_history($input);
+
+    if ($input === 'quit') {
+        break;
+    } else if ($input === 'clear') {
+        system('clear');
+    } else {
+        try {
+            $cmd = new Command($input);
+        } catch (Exception $e) {
+            echo '< ' . $e->getMessage() . PHP_EOL;
+        }
+    }
+}
+
+$session->cleanup(false);
+echo '< Thank you for using E³T <3' . PHP_EOL;
+
+exit(0);

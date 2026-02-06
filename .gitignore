@@ -1,0 +1,4 @@
+vendor
+ddata/*
+!data/log/.gitkeep
+!data/session/.gitkeep

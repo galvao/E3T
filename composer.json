@@ -1,0 +1,13 @@
+{
+    "require": {
+        "galvao-eti/collection": "^2.1",
+        "galvao-eti/monolog-wrapper": "^1.0",
+        "monolog/monolog": "^3.10"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "E3T\\": "src/"
+        }
+    }
+}
