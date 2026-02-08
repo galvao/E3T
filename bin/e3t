@@ -23,6 +23,7 @@ use E3T\{
     E3T,
     Factory\Command,
     Session,
+    Text,
 };
 
 ob_implicit_flush();
@@ -41,7 +42,7 @@ while ($input = readline($tty->getPrompt())) {
         try {
             $cmd = new Command($input);
         } catch (Exception $e) {
-            echo '< ' . $e->getMessage() . PHP_EOL;
+            echo Text::out('< ' . $e->getMessage()) . PHP_EOL;
         }
     }
 }
